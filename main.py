@@ -1,4 +1,5 @@
 import json
+import shutil
 
 from agentchats.content_creation import get_sentence_list
 from prompts.lists import get_present_simple_sentence_list
@@ -39,9 +40,11 @@ if __name__ == '__main__':
         word_list = sentence_to_lemmas(text)
         sentence_list = get_sentence_list(topic="Java Programming", word_list=word_list, tense="Present Simple",
                                           list_length=list_length, seed=seed)
+        shutil.rmtree(".cache", ignore_errors=True)
         if len(sentence_list) > 0:
             for sentence in sentence_list:
-                if check_sentence(sentence, word_list=word_list):
-                    temp_sentence_list.append(sentence)
+                if len(sentence) > 5:
+                    if check_sentence(sentence, word_list=word_list):
+                        temp_sentence_list.append(sentence)
         seed += 1
     print(json.dumps(temp_sentence_list, indent=2))

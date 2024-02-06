@@ -19,10 +19,11 @@ def format_instructions(instructions: list[str]) -> str:
 
 def get_sentence_list(topic: str = "", word_list: list[str] = None, tense: str = "Present Simple",
                       list_length: int = 5, seed: int = 0) -> list[str]:
+    seed_idx = f"get_sentence_list_{seed}"
     json_list_template = str([f"sentence{i}" for i in range(1, list_length + 1)]).replace("'", '"')
 
-    message = f"""Strictly return only a list of {list_length} sentences in the {tense} tense! Don't write nonsense, 
-    only sentences that make sense, facts about {topic}, or terminology. Use only {tense} tense markers in sentences! The sentences in the list should not
+    message = f"""Strictly return only a list of {list_length} sentences in the {tense} tense!
+    Use only {tense} tense markers in sentences! The sentences in the list should not
     be сompound and сomplex sentences and should not include other grammatical tenses! The length of the list
     should be strictly no more than {list_length} elements, but don't write any other text and code. Make sure that sentence
     tenses are written in {tense} only!
@@ -39,35 +40,35 @@ def get_sentence_list(topic: str = "", word_list: list[str] = None, tense: str =
 
     manager_config = {
         "request_timeout": 600,
-        "seed": seed,
+        "seed": seed_idx,
         "config_list": dolphin_llm,
         "temperature": 0
     }
 
     user_proxy_config = {
         "request_timeout": 600,
-        "seed": seed,
+        "seed": seed_idx,
         "config_list": dolphin_llm,
         "temperature": 0
     }
 
     content_creator_config = {
         "request_timeout": 600,
-        "seed": seed,
-        "config_list": westlake_llm,
-        "temperature": 0.6
+        "seed": seed_idx,
+        "config_list": dolphin_llm,
+        "temperature": 0.3
     }
 
     content_editor_config = {
         "request_timeout": 600,
-        "seed": seed,
+        "seed": seed_idx,
         "config_list": starling_llm,
-        "temperature": 0.6
+        "temperature": 0.3
     }
 
     critic_config = {
         "request_timeout": 600,
-        "seed": seed,
+        "seed": seed_idx,
         "config_list": openchat_llm,
         "temperature": 0.2
     }
@@ -93,12 +94,13 @@ def get_sentence_list(topic: str = "", word_list: list[str] = None, tense: str =
         name="content_creator",
         llm_config=content_creator_config,
         is_termination_msg=lambda x: x.get("content", "") and "TERMINATE" in x.get("content", "").strip(),
-        system_message=f"""As a content creator, who is very strong on grammar, you are required to create textual content. 
-        Strictly return only a list of sentences in the {tense} tense! Use only {tense} tense 
-        markers in every sentences! You must use topic to figure out in what topic to use the words in the list, but no more! 
+        system_message=f"""As a content creator, who is very strong on grammar, you are required to create textual content.
+        Strictly return only a list of sentences in the {tense} tense! Don't write nonsense, only sentences that make 
+        sense, facts about {topic}, or {topic} terminology.
+        Use only {tense} tense markers in every sentences! You must use topic to figure out in what topic to use the words in the list, but no more!
         You must strictly follow these instructions:
         {content_creator_instructions}
-        Follow the critic's "recommendations" or "improvements" to correct your response! Your content must be edited 
+        Follow the critic's "recommendations" or "improvements" to correct your response! Your content must be edited
         by the content_editor agent.
         Strictly reply with a list of {list_length} sentences only in json list format {json_list_template}
         """
@@ -108,9 +110,9 @@ def get_sentence_list(topic: str = "", word_list: list[str] = None, tense: str =
         name="content_editor",
         llm_config=content_editor_config,
         is_termination_msg=lambda x: x.get("content", "") and "TERMINATE" in x.get("content", "").strip(),
-        system_message=f"""As a content editor, who is very strong on grammar, you need to fix textual content created by 
-        a content writer.
-        Correct every sentence in the list in {tense} tense! Check {tense} tense markers
+        system_message=f"""As a content editor, who is very strong on grammar, you need to fix textual content created by
+        a content writer. Correct every sentence in the list in {tense} tense! Don't write nonsense, only sentences that make
+        sense, facts about {topic}, or {topic} terminology. Check {tense} tense markers
         in every sentences! Rewrite all the sentences in the list so that they are correct not only grammatically but also in meaning.
         You must strictly follow these instructions:
         {content_editor_instructions}
@@ -124,7 +126,7 @@ def get_sentence_list(topic: str = "", word_list: list[str] = None, tense: str =
         name="critic",
         llm_config=critic_config,
         is_termination_msg=lambda x: x.get("content", "") and "TERMINATE" in x.get("content", "").strip(),
-        system_message=f"""As a critic, who is very strong on grammar, it is your responsibility to check the textual 
+        system_message=f"""As a critic, who is very strong on grammar, it is your responsibility to check the textual
         content created by the content_creator agent and edited by the content_editor agent.
         Follow these task requirements:
         {critic_instructions}
