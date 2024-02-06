@@ -1,0 +1,32 @@
+[
+  {
+    "model": "dolphin",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  },
+  {
+    "model": "openchat",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  },
+  {
+    "model": "xdan",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  },
+  {
+    "model": "starling",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  },
+  {
+    "model": "westlake",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  },
+  {
+    "model": "openhermes",
+    "api_key": "NULL",
+    "api_base": "http://localhost:1234/v1"
+  }
+]

@@ -27,7 +27,7 @@ def get_present_simple_prompt(context: str, word_list: [str]) -> str:
     return prompt.format(context=context, word_list=word_list)
 
 
-def get_sentence_list():
+def get_present_simple_sentence_list():
     examples = [
         {"word_list": ["work", "study", "speak", "you", "also", "it", "I", "help", "this", "to", "like", "want",
                        "think", "English", "language", "understand", "know", "see", "and", "go", "so"],
@@ -66,8 +66,9 @@ def get_sentence_list():
         examples=examples,
         example_prompt=example_prompt,
         prefix="""Follow the context: {context}. Strictly return only a list of sentences in the 
-        Present Simple tense. The length of the list should be strictly no more than 5 elements and in python list 
-        format like in the examples. Strictly use words only from the "Word List", not more. 
+        Present Simple tense, don't return сompound and сomplex sentences with other grammatical tenses. The length of 
+        the list should be strictly no more than 5 elements and in json list format ['sentence1', 'sentence2', etc].
+        Strictly use words only from the "Word List", not more.
         Strictly make sure that every sentence as grammatically correct as in "Sentences" list examples, as logically 
         coherent, laconic as possible.""",
         suffix="Word List: {input}\nSentences: ",

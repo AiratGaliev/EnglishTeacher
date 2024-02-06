@@ -71,7 +71,7 @@ def load_dolphin_dpo_laser(system_prompt: str = "", temperature: float = 0.0):
 
 
 def load_westlake_llm(temperature: float = 0.0):
-    return load_llm(model_path="/home/airat/LLMs/TheBloke/WestLake-7B-v2-GGUF/westlake-7b-v2.Q4_K_M.gguf",
+    return load_llm(model_path="/home/airat/LLMs/westlake-7b-v2.Q4_K_M.gguf",
                     temperature=temperature)
 
 

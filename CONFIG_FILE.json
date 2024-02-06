@@ -1,0 +1,72 @@
+{
+  "host": "0.0.0.0",
+  "port": 1234,
+  "models": [
+    {
+      "model": "/home/airat/LLMs/dolphin-2.6-mistral-7b-dpo-laser.Q4_K_M.gguf",
+      "model_alias": "dolphin",
+      "chat_format": "chatml",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    },
+    {
+      "model": "/home/airat/LLMs/openchat-3.5-0106.Q4_K_M.gguf",
+      "model_alias": "openchat",
+      "chat_format": "openchat",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    },
+    {
+      "model": "/home/airat/LLMs/xdan-l1-chat-rl-v1.Q4_K_M.gguf",
+      "model_alias": "xdan",
+      "chat_format": "chatml",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    },
+    {
+      "model": "/home/airat/LLMs/starling-lm-7b-alpha.Q4_K_M.gguf",
+      "model_alias": "starling",
+      "chat_format": "openchat",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    },
+    {
+      "model": "/home/airat/LLMs/westlake-7b-v2.Q4_K_M.gguf",
+      "model_alias": "westlake",
+      "chat_format": "chatml",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    },
+    {
+      "model": "/home/airat/LLMs/openhermes-2.5-mistral-7b-16k.Q4_K_M.gguf",
+      "model_alias": "openhermes",
+      "chat_format": "chatml",
+      "n_gpu_layers": 33,
+      "offload_kqv": true,
+      "n_threads": 6,
+      "n_batch": 150,
+      "n_ctx": 8192,
+      "cache": false
+    }
+  ]
+}
